@@ -1,9 +1,10 @@
 # Qortn
 
-The website and brand of **Qortn**, the software studio that makes [Community](https://seventhdayadventist.online).
+The website and brand of **Qortn**, an independent software studio. Its first app is Community.
 
 ## The website
-`index.html` is the whole site in one file (styles, script and images included). It works on any
+`index.html` is the whole site in one file (styles, script and images included), with the studio's own
+`privacy.html` and `terms.html` beside it. It works on any
 static host. Cloudflare Pages is configured in `wrangler.toml`; it publishes the repository root
 directly, with no build command required. For Git integration, use `.` as the build output directory
 and leave the build command blank. To deploy with Wrangler, run:
@@ -12,26 +13,27 @@ and leave the build command blank. To deploy with Wrangler, run:
 npx wrangler pages deploy .
 ```
 
-To change it, edit `src/index.template.html` and run:
+To change it, edit `src/index.template.html` (or `src/privacy.template.html`, `src/terms.template.html`) and run:
 
 ```
 python3 src/build.py
 ```
 
-That rebuilds `index.html`, filling in the logo, the wordmark and the app screens from `img/`.
+That rebuilds `index.html`, `privacy.html` and `terms.html`, filling in the logo, the wordmark and the app screens from `img/`.
 
 The sections, top to bottom:
-1. A sticky see-through top bar.
-2. The opening statement.
-3. Community: a headline, a line and five iPhones fanned out (Map, a community page, the Bible in front,
-   Sabbath School and Home). The phones are drawn in CSS; their screens are `img/map`, `community`,
-   `bible`, `lessons` and `home.webp`, captured from the app's demo build in dark mode at 390 points wide.
-   On a phone the line-up shows the middle three.
-4. A sideways tour of five screens.
-5. Community on the big screen.
-6. Platforms.
-7. About Qortn.
-8. A footer where the wordmark catches a moving band of violet light.
+1. A sticky see-through top bar (About, How we build, Our apps, Contact).
+2. The opening statement: Qortn, the studio, with its mark. The mark also sits very faintly behind the whole page.
+3. Who we are, and how we build (three values).
+4. Our apps: Community, with a headline, a line, one "Open Community" link and five iPhones fanned out (Map,
+   a community page, the Bible in front, the weekly lesson and Home). The phones are drawn in CSS; their screens
+   are `img/map`, `community`, `bible`, `lessons` and `home.webp`, captured from the app's demo build in dark
+   mode at 390 points wide. On a phone the line-up shows the middle three.
+5. A sideways tour of the same five screens (Bible, a community, Map, lessons, Home).
+6. Community on the big screen: a laptop showing a community page (`img/maccommunity.webp`, the demo build at
+   1440 × 900 at 2×, dark).
+7. Platforms.
+8. A footer (Qortn, contact, the Privacy policy and Terms of use) where the wordmark catches a moving band of violet light.
 
 The site follows light and dark mode, and stops its animations for visitors who have asked for reduced motion.
 
