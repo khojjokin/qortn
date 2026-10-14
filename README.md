@@ -4,8 +4,13 @@ The website and brand of **Qortn**, the software studio that makes [Community](h
 
 ## The website
 `index.html` is the whole site in one file (styles, script and images included). It works on any
-static host. For Cloudflare Pages: create a project from this repo with no build command and the
-output folder `/`.
+static host. Cloudflare Pages is configured in `wrangler.toml`; it publishes the repository root
+directly, with no build command required. For Git integration, use `.` as the build output directory
+and leave the build command blank. To deploy with Wrangler, run:
+
+```
+npx wrangler pages deploy .
+```
 
 To change it, edit `src/index.template.html` and run:
 
