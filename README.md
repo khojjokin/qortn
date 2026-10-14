@@ -26,11 +26,11 @@ The sections, top to bottom:
 2. The opening statement: Qortn, the studio, with its mark. The mark also sits very faintly behind the whole page.
 3. Who we are, and how we build (three values).
 4. Our apps: Community, with a headline, a line, one "Open Community" link and five iPhones fanned out (Map,
-   a community page, the Bible in front, the weekly lesson and the Hymnal). The phones are drawn in CSS; their screens
+   a community page (Sabbath Prayer Circle), the Bible in front, the weekly lesson and the Hymnal). The phones are drawn in CSS; their screens
    are `img/map`, `community`, `bible`, `lessons` and `hymnal.webp`, captured from the app's demo build in dark
    mode at 390 points wide. On a phone the line-up shows the middle three.
 5. A sideways tour of the same five screens (Bible, a community, Map, lessons, Hymnal).
-6. Community on the big screen: a laptop showing a community page (`img/maccommunity.webp`, the demo build at
+6. Community on the big screen: a laptop showing a community page, Sabbath Prayer Circle (`img/maccommunity.webp`, the demo build at
    1440 × 900 at 2×, dark).
 7. Platforms.
 8. A footer (Qortn, contact, the Privacy policy and Terms of use) where the wordmark catches a moving band of violet light.
