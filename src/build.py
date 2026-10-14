@@ -1,7 +1,7 @@
 """Builds the Qortn website: index.html as one self-contained page, plus privacy.html and terms.html.
 
-The templates in src/ hold the pages; this fills in the logo (brand/qortn-mark-192.png), the large mark
-(brand/qortn-mark-512.png, used once as a CSS variable for the hero and the background watermark), the
+The templates in src/ hold the pages; this fills in the logo (brand/qortn-mark-white-192.png: the site is black, so the
+mark is white), the large mark (brand/qortn-mark-white-512.png, used once as a CSS variable for the hero and the background watermark), the
 wordmark (from brand/make.py), the footer's wordmark mask and the app's screens from img/ as data URIs.
 The legal pages load the small mark from /brand/ instead, so they stay a few kilobytes.
 Run: python3 src/build.py   (after python3 brand/make.py if the logo changed)
@@ -17,8 +17,8 @@ def data(path, kind):
     return f'data:{kind};base64,' + base64.b64encode(open(path, 'rb').read()).decode()
 
 
-MARK = data(os.path.join(ROOT, 'brand', 'qortn-mark-192.png'), 'image/png')
-MARK_BIG = data(os.path.join(ROOT, 'brand', 'qortn-mark-512.png'), 'image/png')
+MARK = data(os.path.join(ROOT, 'brand', 'qortn-mark-white-192.png'), 'image/png')
+MARK_BIG = data(os.path.join(ROOT, 'brand', 'qortn-mark-white-512.png'), 'image/png')
 
 
 def word(h):
@@ -46,7 +46,7 @@ print(f'index.html {len(page) // 1024} KB')
 # The legal pages: the same lockup, with the mark as a file rather than inline.
 for name in ('privacy', 'terms'):
     legal = open(os.path.join(HERE, name + '.template.html')).read()
-    legal = legal.replace('{{logo_nav}}', lockup(22, '/brand/qortn-mark-192.png'))
+    legal = legal.replace('{{logo_nav}}', lockup(22, '/brand/qortn-mark-white-192.png'))
     assert '{{' not in legal, re.findall(r'\{\{[^}]+\}\}', legal)
     open(os.path.join(ROOT, name + '.html'), 'w').write(legal)
     print(f'{name}.html {len(legal) // 1024} KB')

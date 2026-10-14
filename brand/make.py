@@ -1,6 +1,7 @@
 """Qortn brand files: the wordmark "qortn" (Outfit SemiBold, OFL, turned into shapes) and the logo in
 the sizes the apps and the website use. The mark itself is the owner's own artwork
-(qortn-logo-original.jpg), cut out of its white background so it sits on light and dark.
+(qortn-logo-original.jpg), cut out of its white background so it sits on light and dark, plus a white
+version of it (qortn-mark-white-*) for the black website, and the website's favicon and home-screen icons.
 Run: python3 brand/make.py
 """
 import os
@@ -35,10 +36,38 @@ def cut_out():
     return sq
 
 
+def white(mark):
+    """The same mark in white for the black website: the cut-out's shape, with its facets kept as soft tones of
+    white (the darkest facets a light grey, the brightest pure white) so it still reads as crystal."""
+    a = np.asarray(mark).astype(np.float32) / 255
+    alpha = a[..., 3]
+    lum = a[..., :3] @ np.array([.299, .587, .114], dtype=np.float32)
+    lo, hi = np.percentile(lum[alpha > .9], [3, 97])
+    v = .76 + .24 * np.clip((lum - lo) / (hi - lo), 0, 1)
+    return Image.fromarray((np.dstack([v, v, v, alpha]) * 255).round().astype(np.uint8), 'RGBA')
+
+
+def on_black(mark, size, scale=.84):
+    """The white mark centred on true black: the website's favicon and home-screen icons."""
+    im = Image.new('RGBA', (size, size), (0, 0, 0, 255))
+    s = round(size * scale)
+    m = mark.resize((s, s), Image.LANCZOS)
+    im.paste(m, ((size - s) // 2, (size - s) // 2), m)
+    return im.convert('RGB')
+
+
 if __name__ == '__main__':
     mark = cut_out()
     for size in (1024, 512, 192):
         mark.resize((size, size), Image.LANCZOS).save(os.path.join(HERE, f'qortn-mark-{size}.png'))
+    wmark = white(mark)
+    for size in (1024, 512, 192):
+        wmark.resize((size, size), Image.LANCZOS).save(os.path.join(HERE, f'qortn-mark-white-{size}.png'))
+    # The website's own icons (it is black, with the white mark).
+    ROOT = os.path.dirname(HERE)
+    on_black(wmark, 192).save(os.path.join(ROOT, 'icon-192.png'))
+    on_black(wmark, 180).save(os.path.join(ROOT, 'apple-touch-icon.png'))
+    on_black(wmark, 32, .94).save(os.path.join(ROOT, 'favicon-32.png'))
     # App / social icon: the mark on the studio's near-black.
     icon = Image.new('RGBA', (1024, 1024), (13, 10, 20, 255))
     m = mark.resize((820, 820), Image.LANCZOS)

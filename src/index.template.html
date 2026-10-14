@@ -16,35 +16,25 @@
    quiet footer where the wordmark catches the light. The mark sits faintly behind it all. */
 :root {
   --mark: url("{{mark_big}}");
-  --bg: #fbfaff;
-  --surface: #f2eefb;
-  --tile: #ffffff;
-  --fg: #17121f;
-  --fg2: #625a74;
-  --line: rgba(60, 30, 110, 0.12);
+  /* Always black, whatever the visitor's light/dark setting: true black page, near-black surfaces, white text. */
+  --bg: #000;
+  --surface: #0f0f11;
+  --tile: #151517;
+  --fg: #f5f5f7;
+  --fg2: #a1a1a6;
+  --line: rgba(255, 255, 255, 0.12);
   --violet: #7c3aed;
   --purple: #c026d3;
-  --accent-text: #6d28d9;
-  --nav: rgba(251, 250, 255, 0.72);
-  --stage: #0d0a14;
-  --stage-fg: #f6f3fb;
-  --stage-fg2: #a59cb9;
-  --word-faint: rgba(124, 58, 237, 0.10);
+  --accent-text: #c4a5ff;
+  --nav: rgba(0, 0, 0, 0.72);
+  --stage: #0f0f11;
+  --stage-fg: #f5f5f7;
+  --stage-fg2: #a1a1a6;
+  --word-faint: rgba(255, 255, 255, 0.07);
   --display: "Outfit", -apple-system, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
   --body: -apple-system, "SF Pro Text", "Manrope", "Segoe UI", Roboto, sans-serif;
   --ease: cubic-bezier(.2, .7, .1, 1);
-}
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #09070e; --surface: #120f1a; --tile: #15111f; --fg: #f4f1fa; --fg2: #a59cb9;
-    --line: rgba(200, 170, 255, 0.12); --accent-text: #c4a5ff; --nav: rgba(9, 7, 14, 0.7);
-    --stage: #120e1b; --word-faint: rgba(196, 165, 255, 0.08); color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #09070e; --surface: #120f1a; --tile: #15111f; --fg: #f4f1fa; --fg2: #a59cb9;
-  --line: rgba(200, 170, 255, 0.12); --accent-text: #c4a5ff; --nav: rgba(9, 7, 14, 0.7);
-  --stage: #120e1b; --word-faint: rgba(196, 165, 255, 0.08); color-scheme: dark;
+  color-scheme: dark;
 }
 
 * { box-sizing: border-box; }
@@ -66,9 +56,7 @@ p { margin: 0; }
 /* Fixed behind everything (z-index -1 sits above the page colour, below all content), tinted and softened so
    text keeps its contrast. It doesn't move, so there is nothing to stop for reduced motion. */
 .bgmark { position: fixed; z-index: -1; left: 50%; top: 50%; width: min(118vw, 1040px); aspect-ratio: 1; transform: translate(-50%, -46%);
-  background: var(--mark) center / contain no-repeat; opacity: .06; filter: blur(1.5px) saturate(.8); pointer-events: none; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .bgmark { opacity: .1; } }
-:root[data-theme="dark"] .bgmark { opacity: .1; }
+  background: var(--mark) center / contain no-repeat; opacity: .045; filter: blur(1.5px); pointer-events: none; }
 @media (max-width: 640px) { .bgmark { width: 150vw; } }
 @media print { .bgmark { display: none; } }
 
@@ -113,7 +101,7 @@ p { margin: 0; }
 .more:hover { text-decoration: underline; }
 
 /* ---------- Community tile: a headline, a line, then five iPhones fanned out ---------- */
-.tile { --phone-shadow: rgba(40, 20, 80, .28); background: var(--surface); color: var(--fg); border-radius: 28px; overflow: hidden; overflow: clip; text-align: center; padding-block: 64px 0; position: relative; isolation: isolate; }
+.tile { --phone-shadow: rgba(0, 0, 0, .6); background: var(--surface); color: var(--fg); border-radius: 28px; overflow: hidden; overflow: clip; text-align: center; padding-block: 64px 0; position: relative; isolation: isolate; }
 .tile::before { content: ""; position: absolute; inset: auto -10% -20% -10%; height: 75%; z-index: -1; background: radial-gradient(55% 55% at 50% 62%, rgba(124, 58, 237, .26), transparent 70%); }
 .tile .app-icon { display: block; width: 92px; height: 92px; margin: 0 auto 20px; border-radius: 22.5%; box-shadow: 0 0 0 1px var(--line), 0 14px 34px rgba(20, 10, 40, .18); }
 .tile .kicker { font-size: 15px; font-weight: 600; letter-spacing: .02em; color: var(--accent-text); }
@@ -121,8 +109,6 @@ p { margin: 0; }
 .tile .lead { font-size: clamp(18px, 2.2vw, 24px); color: var(--fg2); margin: 14px auto 0; max-width: 34ch; line-height: 1.35; }
 .soon { font-size: 14px; color: var(--fg2); border: 1px solid var(--line); border-radius: 999px; padding: 9px 16px; display: inline-flex; gap: 8px; align-items: center; }
 .soon svg { width: 15px; height: 15px; }
-@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tile { --phone-shadow: rgba(0, 0, 0, .6); } }
-:root[data-theme="dark"] .tile { --phone-shadow: rgba(0, 0, 0, .6); }
 
 /* The line-up. Each phone (li) is its own size container, so the frame, the island and the status bar scale with it. */
 .fan { list-style: none; margin: 56px auto 0; padding: 0 0 64px; max-width: 1040px; display: flex; justify-content: center; align-items: center; }
@@ -321,10 +307,7 @@ footer { margin-top: 120px; background: var(--surface); border-top: 1px solid va
   <div class="wrap" id="community">
     <section class="tile" aria-labelledby="community-title">
       <div class="wrap">
-        <picture>
-          <source media="(prefers-color-scheme: dark)" srcset="{{img:communityicon}}">
-          <img class="app-icon" src="{{img:communityiconlight}}" width="256" height="256" alt="The Community app icon: an open Bible with a flame, a dove and a cross">
-        </picture>
+        <img class="app-icon" src="{{img:communityicon}}" width="256" height="256" alt="The Community app icon: an open Bible with a flame, a dove and a cross">
         <div class="kicker">The first app from Qortn</div>
         <h2 id="community-title">Community</h2>
         <p class="lead">A calm home for church communities. The Bible, weekly lessons, group pages and the people near you, all in one place.</p>

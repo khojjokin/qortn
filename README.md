@@ -35,7 +35,8 @@ The sections, top to bottom:
 7. Platforms.
 8. A footer (Qortn, contact, the Privacy policy and Terms of use) where the wordmark catches a moving band of violet light.
 
-The site follows light and dark mode, and stops its animations for visitors who have asked for reduced motion.
+The site is always black (true black page, near-black surfaces, white text and the white mark), whatever the
+visitor's light or dark setting, and stops its animations for visitors who have asked for reduced motion.
 
 ## The logo
 The mark is the crystal winged figure in violet and blue (`brand/qortn-logo-original.jpg`). It is cut out of
@@ -45,10 +46,12 @@ License, in `fonts/`), turned into shapes so it needs no font.
 | File in `brand/` | Use |
 | --- | --- |
 | `qortn-mark-1024.png`, `-512`, `-192` | The mark on a transparent background |
+| `qortn-mark-white-1024.png`, `-512`, `-192` | The mark in white (soft white facets), used by the black website |
 | `qortn-icon-1024.png` | App or social icon (the mark on near-black) |
 | `qortn-wordmark.svg` / `qortn-wordmark-light.svg` | "qortn" for light / dark backgrounds |
 | `qortn-logo-original.jpg` | The original artwork |
 
-`python3 brand/make.py` remakes these from the original.
+`python3 brand/make.py` remakes these from the original, and the site's `favicon-32.png`, `icon-192.png` and
+`apple-touch-icon.png` (the white mark on black).
 
 © Qortn. All rights reserved.

@@ -11,17 +11,15 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap">
 <style>
-/* The legal pages: the website's colours, fonts and nav, with one readable column of text. */
+/* The legal pages: the website's colours, fonts and nav, with one readable column of text, always black. */
 :root {
-  --bg: #fbfaff; --surface: #f2eefb; --fg: #17121f; --fg2: #625a74; --line: rgba(60, 30, 110, 0.12);
-  --violet: #7c3aed; --purple: #c026d3; --accent-text: #6d28d9; --nav: rgba(251, 250, 255, 0.72);
+  /* Always black, like the website. */
+  --bg: #000; --surface: #0f0f11; --fg: #f5f5f7; --fg2: #a1a1a6; --line: rgba(255, 255, 255, 0.12);
+  --violet: #7c3aed; --purple: #c026d3; --accent-text: #c4a5ff; --nav: rgba(0, 0, 0, 0.72);
   --display: "Outfit", -apple-system, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
   --body: -apple-system, "SF Pro Text", "Manrope", "Segoe UI", Roboto, sans-serif;
+  color-scheme: dark;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) { --bg: #09070e; --surface: #120f1a; --fg: #f4f1fa; --fg2: #a59cb9; --line: rgba(200, 170, 255, 0.12); --accent-text: #c4a5ff; --nav: rgba(9, 7, 14, 0.7); color-scheme: dark; }
-}
-:root[data-theme="dark"] { --bg: #09070e; --surface: #120f1a; --fg: #f4f1fa; --fg2: #a59cb9; --line: rgba(200, 170, 255, 0.12); --accent-text: #c4a5ff; --nav: rgba(9, 7, 14, 0.7); color-scheme: dark; }
 * { box-sizing: border-box; }
 html, body { margin: 0; }
 body { background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.6; -webkit-font-smoothing: antialiased; }
