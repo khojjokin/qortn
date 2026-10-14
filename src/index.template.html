@@ -1,0 +1,410 @@
+<title>Qortn</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Qortn makes simple, beautiful apps that bring people closer. Our first is Community, for the church family.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap">
+<style>
+/* Layout: an Apple-style product page. Thin glass nav, a centred statement, then full-width product tiles
+   that each carry one idea, a sideways tour, and a quiet footer where the wordmark catches the light. */
+:root {
+  --bg: #fbfaff;
+  --surface: #f2eefb;
+  --tile: #ffffff;
+  --fg: #17121f;
+  --fg2: #625a74;
+  --line: rgba(60, 30, 110, 0.12);
+  --violet: #7c3aed;
+  --purple: #c026d3;
+  --accent-text: #6d28d9;
+  --nav: rgba(251, 250, 255, 0.72);
+  --stage: #0d0a14;
+  --stage-fg: #f6f3fb;
+  --stage-fg2: #a59cb9;
+  --word-faint: rgba(124, 58, 237, 0.10);
+  --display: "Outfit", -apple-system, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+  --body: -apple-system, "SF Pro Text", "Manrope", "Segoe UI", Roboto, sans-serif;
+  --ease: cubic-bezier(.2, .7, .1, 1);
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #09070e; --surface: #120f1a; --tile: #15111f; --fg: #f4f1fa; --fg2: #a59cb9;
+    --line: rgba(200, 170, 255, 0.12); --accent-text: #c4a5ff; --nav: rgba(9, 7, 14, 0.7);
+    --stage: #120e1b; --word-faint: rgba(196, 165, 255, 0.08); color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #09070e; --surface: #120f1a; --tile: #15111f; --fg: #f4f1fa; --fg2: #a59cb9;
+  --line: rgba(200, 170, 255, 0.12); --accent-text: #c4a5ff; --nav: rgba(9, 7, 14, 0.7);
+  --stage: #120e1b; --word-faint: rgba(196, 165, 255, 0.08); color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg); color: var(--fg); font-family: var(--body); font-size: 17px; line-height: 1.47;
+  -webkit-font-smoothing: antialiased; overflow-x: hidden;
+}
+a { color: inherit; }
+img { display: block; max-width: 100%; height: auto; }
+h1, h2, h3 { font-family: var(--display); text-wrap: balance; margin: 0; letter-spacing: -0.02em; }
+p { margin: 0; }
+.wrap { width: 100%; max-width: 1080px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.grad { background: linear-gradient(100deg, var(--violet), var(--purple)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; border-radius: 6px; }
+
+/* ---------- Nav ---------- */
+.nav { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 20; background: var(--nav); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--line); }
+.nav-in { height: 52px; display: flex; align-items: center; gap: 24px; }
+.brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: var(--fg); flex: none; }
+.brand svg, .brand img { display: block; }
+.links { display: flex; gap: 28px; margin: 0 auto; }
+.links a { font-size: 13px; color: var(--fg2); text-decoration: none; transition: color .2s; }
+.links a:hover { color: var(--fg); }
+.nav-cta { font-size: 12.5px; font-weight: 600; text-decoration: none; color: #fff; background: linear-gradient(100deg, var(--violet), var(--purple)); padding: 6px 14px; border-radius: 999px; flex: none; transition: transform .2s var(--ease), box-shadow .2s; }
+.nav-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(124, 58, 237, .35); }
+.menu-btn { display: none; margin-left: auto; background: none; border: 0; color: var(--fg); width: 40px; height: 40px; border-radius: 10px; cursor: pointer; }
+.menu-btn span { display: block; width: 18px; height: 1.5px; background: currentColor; margin: 5px auto; transition: transform .3s var(--ease); }
+.nav.open .menu-btn span:first-child { transform: translateY(3.25px) rotate(45deg); }
+.nav.open .menu-btn span:last-child { transform: translateY(-3.25px) rotate(-45deg); }
+.sheet { display: none; }
+@media (max-width: 720px) {
+  .links, .nav-in > .nav-cta { display: none; }
+  .menu-btn { display: block; }
+  .sheet { display: grid; overflow: hidden; max-height: 0; transition: max-height .4s var(--ease); }
+  .nav.open .sheet { max-height: 320px; }
+  .sheet a { font-family: var(--display); font-size: 24px; font-weight: 600; text-decoration: none; padding: 8px 0; }
+  .sheet .wrap { display: grid; padding-block: 4px 20px; }
+}
+
+/* ---------- Hero ---------- */
+.hero { position: relative; text-align: center; padding-block: 88px 64px; overflow: hidden; isolation: isolate; }
+.hero::before, .hero::after { content: ""; position: absolute; z-index: -1; width: 620px; height: 620px; border-radius: 50%; filter: blur(80px); opacity: .45; }
+.hero::before { background: radial-gradient(circle, rgba(124, 58, 237, .55), transparent 65%); top: -260px; left: 50%; margin-left: -520px; animation: drift 18s ease-in-out infinite alternate; }
+.hero::after { background: radial-gradient(circle, rgba(192, 38, 211, .45), transparent 65%); top: -200px; left: 50%; margin-left: -60px; animation: drift 22s ease-in-out infinite alternate-reverse; }
+@keyframes drift { to { transform: translate(80px, 40px) scale(1.12); } }
+.hero-mark { width: 132px; margin: 0 auto 18px; }
+.hero-mark img { width: 100%; height: auto; }
+.hero h1 { font-size: clamp(42px, 7.4vw, 84px); font-weight: 600; line-height: 1.02; letter-spacing: -0.035em; max-width: 12ch; margin: 0 auto; }
+.hero p { font-size: clamp(18px, 2.2vw, 23px); color: var(--fg2); max-width: 34ch; margin: 22px auto 0; line-height: 1.38; }
+.ctas { display: flex; gap: 22px; justify-content: center; align-items: center; flex-wrap: wrap; margin-top: 32px; }
+.btn { font-family: var(--body); font-size: 17px; font-weight: 500; text-decoration: none; color: #fff; background: var(--violet); padding: 12px 24px; border-radius: 999px; transition: background .2s, transform .2s var(--ease); }
+.btn:hover { background: #6d28d9; transform: scale(1.03); }
+.more { font-size: 17px; color: var(--accent-text); text-decoration: none; }
+.more::after { content: " ›"; }
+.more:hover { text-decoration: underline; }
+
+/* ---------- Community tile ---------- */
+.tile { background: var(--stage); color: var(--stage-fg); border-radius: 28px; overflow: hidden; text-align: center; padding-block: 64px 0; position: relative; isolation: isolate; }
+.tile::before { content: ""; position: absolute; inset: auto -10% -30% -10%; height: 70%; z-index: -1; background: radial-gradient(60% 60% at 50% 60%, rgba(124, 58, 237, .38), transparent 70%); }
+.tile .kicker { font-size: 15px; font-weight: 600; letter-spacing: .02em; color: #c4a5ff; }
+.tile h2 { font-size: clamp(40px, 6.4vw, 72px); font-weight: 600; line-height: 1.04; margin-top: 8px; letter-spacing: -0.035em; }
+.tile .lead { font-size: clamp(18px, 2.2vw, 24px); color: var(--stage-fg2); margin: 14px auto 0; max-width: 32ch; line-height: 1.35; }
+.tile .ctas .more { color: #c4a5ff; }
+.soon { font-size: 14px; color: var(--stage-fg2); border: 1px solid rgba(255, 255, 255, .16); border-radius: 999px; padding: 9px 16px; display: inline-flex; gap: 8px; align-items: center; }
+.soon svg { width: 15px; height: 15px; }
+
+.stage { position: relative; max-width: 940px; margin: 56px auto 0; padding: 0 3% 0; }
+.mac { position: relative; transform: translateY(30px); transition: transform 1.2s var(--ease); }
+.mac-screen { background: #0b0b0e; border: 1px solid #3a3644; border-bottom: 0; border-radius: 18px 18px 0 0; padding: 1.6% 1.6% 0; box-shadow: 0 30px 80px rgba(0, 0, 0, .55); }
+.mac-screen img { border-radius: 6px 6px 0 0; aspect-ratio: 1600 / 1000; width: 100%; object-fit: cover; }
+.mac-base { height: 18px; margin: 0 -6%; background: linear-gradient(#cfcbd6, #8e8a97); border-radius: 0 0 14px 14px; position: relative; }
+.mac-base::before { content: ""; position: absolute; left: 50%; top: 0; width: 16%; height: 6px; margin-left: -8%; background: #a9a5b2; border-radius: 0 0 8px 8px; }
+.phone { position: absolute; right: -1%; bottom: -2%; width: 24%; transform: translateY(70px); transition: transform 1.4s var(--ease); z-index: 2; }
+.in .mac, .in .phone { transform: none; }
+.phone-body { background: #0d0d10; border-radius: 16% / 7.5%; padding: 4.2%; box-shadow: 0 0 0 1.5px #4b4656, 0 30px 60px rgba(0, 0, 0, .6); position: relative; }
+.phone-body img { border-radius: 12.5% / 5.8%; width: 100%; aspect-ratio: 600 / 1301; object-fit: cover; }
+.phone-body::after { content: ""; position: absolute; top: 5.6%; left: 50%; width: 30%; height: 3.4%; margin-left: -15%; background: #000; border-radius: 999px; }
+.tile .fade { height: 0; }
+
+/* ---------- Banner ---------- */
+.banner { margin-top: 20px; border-radius: 28px; overflow: hidden; background: #050a07; position: relative; }
+.banner img { width: 100%; aspect-ratio: 2000 / 857; object-fit: cover; }
+.banner figcaption { padding: 0 24px 20px; margin-top: -8px; font-size: 14px; color: rgba(255, 255, 255, .72); text-align: center; }
+
+/* ---------- Section heads ---------- */
+.section { padding-block: 96px 0; }
+.head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; margin-bottom: 28px; }
+.head h2 { font-size: clamp(32px, 4.6vw, 52px); font-weight: 600; line-height: 1.06; letter-spacing: -0.03em; max-width: 16ch; }
+.head p { color: var(--fg2); max-width: 38ch; }
+
+/* ---------- Tour ---------- */
+.tour { display: flex; gap: 20px; overflow-x: auto; scroll-snap-type: x mandatory; padding-block: 4px 24px; scrollbar-width: none; padding-left: max(16px, env(safe-area-inset-left, 0px), calc((100vw - 1080px) / 2 + 16px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); scroll-padding-left: max(16px, calc((100vw - 1080px) / 2 + 16px)); }
+.tour::-webkit-scrollbar { display: none; }
+.card { flex: 0 0 auto; width: min(340px, 78vw); scroll-snap-align: start; background: var(--surface); border-radius: 26px; padding: 28px 28px 0; display: flex; flex-direction: column; gap: 6px; overflow: hidden; transition: transform .4s var(--ease); }
+.card:hover { transform: scale(1.015); }
+.card .eyebrow { font-size: 13px; font-weight: 600; color: var(--accent-text); letter-spacing: .02em; }
+.card h3 { font-size: 26px; font-weight: 600; line-height: 1.12; letter-spacing: -0.02em; }
+.card p { color: var(--fg2); font-size: 15.5px; }
+.card .shot { margin: 22px auto 0; width: 76%; background: #0d0d10; border-radius: 34px 34px 0 0; padding: 9px 9px 0; box-shadow: 0 0 0 1.5px #3c3846; }
+.card .shot img { border-radius: 26px 26px 0 0; width: 100%; aspect-ratio: 600 / 900; object-fit: cover; object-position: top; }
+.tour-nav { display: flex; gap: 10px; justify-content: flex-end; }
+.tour-nav button { width: 38px; height: 38px; border-radius: 50%; border: 0; background: var(--surface); color: var(--fg); font-size: 18px; cursor: pointer; transition: background .2s; }
+.tour-nav button:hover { background: var(--line); }
+
+/* ---------- Big screen ---------- */
+.big { display: grid; grid-template-columns: 1fr 1.35fr; gap: 40px; align-items: center; background: var(--surface); border-radius: 28px; padding: 48px; overflow: hidden; }
+.big > div { min-width: 0; }
+.big h2 { font-size: clamp(30px, 4vw, 44px); font-weight: 600; line-height: 1.08; letter-spacing: -0.03em; }
+.big p { color: var(--fg2); margin-top: 14px; }
+.big .mini { margin-right: -96px; }
+.big .mini .mac-screen { border-radius: 14px 14px 0 0; }
+.big .mini .mac-base { height: 12px; }
+@media (max-width: 820px) { .big { grid-template-columns: 1fr; padding: 32px 24px; } .big .mini { margin-right: -48px; } }
+
+/* ---------- Platforms ---------- */
+.plats { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }
+.plat { background: var(--tile); border: 1px solid var(--line); border-radius: 20px; padding: 22px 20px; display: grid; gap: 14px; align-content: start; }
+.plat svg { width: 30px; height: 30px; color: var(--fg); }
+.plat b { font-family: var(--display); font-size: 19px; font-weight: 600; display: block; }
+.status { font-size: 13px; display: inline-flex; align-items: center; gap: 6px; color: var(--fg2); }
+.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--fg2); opacity: .5; }
+.status.live { color: var(--accent-text); }
+.status.live::before { background: var(--violet); opacity: 1; box-shadow: 0 0 0 3px rgba(124, 58, 237, .2); }
+@media (max-width: 900px) { .plats { grid-template-columns: repeat(2, 1fr); } .plat:last-child { grid-column: 1 / -1; } }
+
+/* ---------- About ---------- */
+.about { display: grid; grid-template-columns: 1.1fr 1fr; gap: 56px; align-items: start; }
+.about > * { min-width: 0; }
+.about h2 { font-size: clamp(32px, 4.6vw, 52px); font-weight: 600; line-height: 1.06; letter-spacing: -0.03em; }
+.about .story { font-size: 19px; color: var(--fg2); line-height: 1.55; display: grid; gap: 16px; max-width: 46ch; }
+.about .story strong { color: var(--fg); font-weight: 600; }
+.values { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; margin-top: 56px; padding-top: 32px; border-top: 1px solid var(--line); }
+.values b { font-family: var(--display); font-size: 19px; font-weight: 600; display: block; margin-bottom: 6px; }
+.values p { color: var(--fg2); font-size: 15.5px; }
+@media (max-width: 820px) { .about { grid-template-columns: 1fr; gap: 24px; } .values { grid-template-columns: 1fr; gap: 20px; } }
+
+/* ---------- Footer ---------- */
+footer { margin-top: 120px; background: var(--surface); border-top: 1px solid var(--line); font-size: 12.5px; color: var(--fg2); overflow: hidden; }
+.foot-top { display: flex; justify-content: space-between; gap: 32px; flex-wrap: wrap; padding-block: 44px 28px; border-bottom: 1px solid var(--line); }
+.foot-brand { max-width: 30ch; display: grid; gap: 12px; font-size: 14px; }
+.cols { display: grid; grid-template-columns: repeat(3, minmax(120px, auto)); gap: 32px; }
+.cols h4 { font-size: 12.5px; font-weight: 600; color: var(--fg); margin: 0 0 10px; }
+.cols ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 8px; }
+.cols a { text-decoration: none; background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat; transition: background-size .35s var(--ease), color .2s; padding-bottom: 1px; }
+.cols a:hover { color: var(--fg); background-size: 100% 1px; }
+.copy-mail { font: inherit; color: var(--fg2); background: none; border: 0; padding: 0; cursor: pointer; text-align: left; }
+.copy-mail:hover { color: var(--fg); }
+@media (max-width: 560px) { .cols { grid-template-columns: 1fr 1fr; } }
+.fine { display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; padding-block: 18px 0; }
+.fine p { max-width: 70ch; }
+/* The wordmark, very large, with a band of light passing through it. */
+.foot-word { margin-top: 36px; width: 100%; aspect-ratio: {{word_ratio}}; max-height: 340px; margin-bottom: 28px;
+  background: linear-gradient(105deg, var(--word-faint) 0 38%, rgba(124, 58, 237, .85) 46%, rgba(192, 38, 211, .9) 52%, var(--word-faint) 62% 100%);
+  background-size: 280% 100%; background-position: 100% 0;
+  -webkit-mask: url("{{wordmask}}") center bottom / contain no-repeat; mask: url("{{wordmask}}") center bottom / contain no-repeat;
+  animation: sweep 7s var(--ease) infinite; }
+@keyframes sweep { 0% { background-position: 100% 0; } 60%, 100% { background-position: 0 0; } }
+.beam-line { height: 1px; background: linear-gradient(90deg, transparent, var(--violet), var(--purple), transparent); background-size: 200% 100%; animation: line 5s linear infinite; opacity: .7; }
+@keyframes line { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero::before, .hero::after, .foot-word, .beam-line { animation: none; }
+  .foot-word { background-position: 50% 0; }
+  .mac, .phone { transform: none; transition: none; }
+  .card, .btn, .nav-cta { transition: none; }
+}
+@media (max-width: 560px) {
+  .hero { padding-block: 56px 40px; }
+  .tile { border-radius: 22px; padding-block: 44px 0; }
+  .banner { border-radius: 18px; }
+  .section { padding-block: 72px 0; }
+  .phone { width: 30%; }
+}
+</style>
+
+<header class="nav" id="top">
+  <div class="wrap nav-in">
+    <a class="brand" href="#top" aria-label="Qortn home">{{logo_nav}}</a>
+    <nav class="links" aria-label="Main">
+      <a href="#community">Community</a>
+      <a href="#tour">Tour</a>
+      <a href="#platforms">Platforms</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="https://seventhdayadventist.online">Open Community</a>
+    <button class="menu-btn" id="menu" aria-label="Menu" aria-expanded="false" aria-controls="sheet"><span></span><span></span></button>
+  </div>
+  <div class="sheet" id="sheet">
+    <div class="wrap">
+      <a href="#community">Community</a>
+      <a href="#tour">Tour</a>
+      <a href="#platforms">Platforms</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-mark" aria-hidden="true">{{mark}}</div>
+      <h1>Software that brings people <span class="grad">closer.</span></h1>
+      <p>Qortn makes simple, beautiful apps for the communities people love. Our first is Community, for the church family.</p>
+      <div class="ctas">
+        <a class="btn" href="#community">Meet Community</a>
+        <a class="more" href="#about">About Qortn</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="wrap" id="community">
+    <section class="tile" aria-labelledby="community-title">
+      <div class="wrap">
+        <div class="kicker">The first app from Qortn</div>
+        <h2 id="community-title">Community</h2>
+        <p class="lead">Your church, together. Posts, stories, the Bible, hymns, events and messages in one calm place.</p>
+        <div class="ctas">
+          <a class="btn" href="https://seventhdayadventist.online">Open on the web</a>
+          <span class="soon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.3 10.1.8 1.2 1.8 2.6 3.1 2.5 1.3-.1 1.7-.8 3.3-.8 1.5 0 1.9.8 3.3.8 1.4 0 2.2-1.2 3-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4zM14 5.4c.7-.8 1.2-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>Coming soon to the App Store</span>
+        </div>
+      </div>
+      <div class="stage" id="stage">
+        <div class="mac">
+          <div class="mac-screen"><img src="{{img:mac}}" width="1600" height="1000" alt="Community on a Mac: the home feed with stories along the top and suggested people on the right"></div>
+          <div class="mac-base"></div>
+        </div>
+        <div class="phone">
+          <div class="phone-body"><img src="{{img:home}}" width="600" height="1301" alt="Community on an iPhone: a church's post in the Following feed"></div>
+        </div>
+      </div>
+    </section>
+
+    <figure class="banner" style="margin-inline:0">
+      <img src="{{img:banner}}" width="2000" height="857" alt="Five iPhones showing Community: the Library, Explore, the home feed, a profile and the map" loading="lazy">
+      <figcaption>Community on iPhone. Library, Explore, Home, Profile and Map.</figcaption>
+    </figure>
+  </div>
+
+  <section class="section" id="tour" aria-labelledby="tour-title">
+    <div class="wrap head">
+      <h2 id="tour-title">Get to know Community.</h2>
+      <div class="tour-nav" aria-label="Scroll the tour">
+        <button type="button" id="prev" aria-label="Previous">‹</button>
+        <button type="button" id="next" aria-label="Next">›</button>
+      </div>
+    </div>
+    <div class="tour" id="tourList">
+      <article class="card"><div class="eyebrow">Home</div><h3>Your church's day.</h3><p>Posts and stories from the people and churches you follow.</p><div class="shot"><img src="{{img:home}}" width="600" height="1301" alt="The home feed" loading="lazy"></div></article>
+      <article class="card"><div class="eyebrow">Library</div><h3>The Bible, hymns and more.</h3><p>Read, sing and study, with Sabbath School and events close by.</p><div class="shot"><img src="{{img:library}}" width="600" height="1301" alt="The Library" loading="lazy"></div></article>
+      <article class="card"><div class="eyebrow">Explore</div><h3>Find what moves you.</h3><p>Sermons, worship music and photos from churches everywhere.</p><div class="shot"><img src="{{img:explore}}" width="600" height="1301" alt="Explore" loading="lazy"></div></article>
+      <article class="card"><div class="eyebrow">Profile</div><h3>Your own corner.</h3><p>Share what matters to you and see how your posts are doing.</p><div class="shot"><img src="{{img:profile}}" width="600" height="1301" alt="A profile" loading="lazy"></div></article>
+      <article class="card"><div class="eyebrow">Map</div><h3>Churches near you.</h3><p>Find a church and its events at home or when you travel.</p><div class="shot"><img src="{{img:map}}" width="600" height="1301" alt="The map of churches" loading="lazy"></div></article>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="big">
+        <div>
+          <h2>Made for the big screen too.</h2>
+          <p>On a Mac or in any browser, Community spreads out. The Library opens on the Bible, the Hymnal, Sabbath School and your church.</p>
+          <div class="ctas" style="justify-content:flex-start"><a class="more" href="https://seventhdayadventist.online">Try it on the web</a></div>
+        </div>
+        <div class="mini">
+          <div class="mac-screen"><img src="{{img:maclib}}" width="1600" height="1000" alt="The Library on a Mac" loading="lazy"></div>
+          <div class="mac-base"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="platforms" aria-labelledby="plat-title">
+    <div class="wrap">
+      <div class="head"><h2 id="plat-title">One app. Every screen.</h2><p>Sign in once and pick up where you left off, wherever you are.</p></div>
+      <div class="plats">
+        <div class="plat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="3" y="4" width="18" height="12" rx="1.5"/><path d="M8 20h8M12 16v4"/></svg><div><b>Web</b><span class="status live">Available now</span></div></div>
+        <div class="plat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2.5"/><path d="M11 5h2"/></svg><div><b>iPhone</b><span class="status">Coming soon</span></div></div>
+        <div class="plat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="2.5" width="16" height="19" rx="2"/><path d="M11 18.5h2"/></svg><div><b>iPad</b><span class="status">Coming soon</span></div></div>
+        <div class="plat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="4" y="5" width="16" height="11" rx="1.5"/><path d="M2 19h20"/></svg><div><b>Mac</b><span class="status">Coming soon</span></div></div>
+        <div class="plat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><rect x="6" y="2.5" width="12" height="19" rx="2"/><path d="M6 6h12M6 18h12"/></svg><div><b>Android</b><span class="status">Coming soon</span></div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="about" aria-labelledby="about-title">
+    <div class="wrap">
+      <div class="about">
+        <h2 id="about-title">Light on its wings. Solid at its core. That's how we build.</h2>
+        <div class="story">
+          <p><strong>Qortn is an independent software studio.</strong> We build calm, well-made apps that help people stay close to the communities they care about.</p>
+          <p>We start small, sweat the details, and only ship what we would happily use ourselves.</p>
+        </div>
+      </div>
+      <div class="values">
+        <div><b>Made with care</b><p>Every screen is designed, tested and polished by hand.</p></div>
+        <div><b>Private by design</b><p>Your account, your words and your photos stay yours.</p></div>
+        <div><b>Built for everyone</b><p>Dark and light themes, many languages and room for every ability.</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer id="contact">
+  <div class="beam-line" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <span style="color:var(--fg)">{{logo_foot}}</span>
+        <p>Simple, beautiful apps that bring people closer.</p>
+      </div>
+      <div class="cols">
+        <div><h4>Apps</h4><ul><li><a href="#community">Community</a></li><li><a href="https://seventhdayadventist.online">Community on the web</a></li></ul></div>
+        <div><h4>Qortn</h4><ul><li><a href="#about">About</a></li><li><a href="#platforms">Platforms</a></li><li><button type="button" class="copy-mail" id="mail" title="Copy the address">hello@seventhdayadventist.online</button></li></ul></div>
+        <div><h4>Legal</h4><ul><li><a href="https://seventhdayadventist.online/legal/privacy">Privacy policy</a></li><li><a href="https://seventhdayadventist.online/legal/terms">Terms of use</a></li></ul></div>
+      </div>
+    </div>
+    <div class="fine">
+      <p>Community is an independent app. It is not affiliated with or endorsed by the General Conference of Seventh-day Adventists.</p>
+      <p>© <span id="year">2026</span> Qortn. All rights reserved.</p>
+    </div>
+    <div class="foot-word" role="img" aria-label="qortn"></div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var nav = document.querySelector('.nav'), btn = document.getElementById('menu');
+  btn.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  document.querySelectorAll('.sheet a').forEach(function (a) {
+    a.addEventListener('click', function () { nav.classList.remove('open'); btn.setAttribute('aria-expanded', 'false'); });
+  });
+
+  // The Mac and the iPhone rise into place when the tile comes into view (they rest in place without script).
+  var stage = document.getElementById('stage');
+  if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    var io = new IntersectionObserver(function (es) {
+      es.forEach(function (e) { if (e.isIntersecting) { stage.classList.add('in'); io.disconnect(); } });
+    }, { threshold: 0.2 });
+    io.observe(stage);
+  } else { stage.classList.add('in'); }
+
+  var list = document.getElementById('tourList');
+  function step(dir) {
+    var card = list.querySelector('.card');
+    var by = card ? card.getBoundingClientRect().width + 20 : 320;
+    list.scrollBy({ left: dir * by, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+  }
+  document.getElementById('prev').addEventListener('click', function () { step(-1); });
+  document.getElementById('next').addEventListener('click', function () { step(1); });
+
+  var mail = document.getElementById('mail');
+  mail.addEventListener('click', function () {
+    var text = mail.textContent;
+    var done = function () { mail.textContent = 'Copied'; setTimeout(function () { mail.textContent = text; }, 1400); };
+    try {
+      navigator.clipboard.writeText(text).then(done, function () { select(); });
+    } catch (e) { select(); }
+    function select() { var r = document.createRange(); r.selectNodeContents(mail); var s = getSelection(); s.removeAllRanges(); s.addRange(r); }
+  });
+
+  document.getElementById('year').textContent = String(new Date().getFullYear());
+})();
+</script>
