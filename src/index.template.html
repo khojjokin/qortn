@@ -115,6 +115,7 @@ p { margin: 0; }
 /* ---------- Community tile: a headline, a line, then five iPhones fanned out ---------- */
 .tile { --phone-shadow: rgba(40, 20, 80, .28); background: var(--surface); color: var(--fg); border-radius: 28px; overflow: hidden; overflow: clip; text-align: center; padding-block: 64px 0; position: relative; isolation: isolate; }
 .tile::before { content: ""; position: absolute; inset: auto -10% -20% -10%; height: 75%; z-index: -1; background: radial-gradient(55% 55% at 50% 62%, rgba(124, 58, 237, .26), transparent 70%); }
+.tile .app-icon { display: block; width: 92px; height: 92px; margin: 0 auto 20px; border-radius: 22.5%; box-shadow: 0 0 0 1px var(--line), 0 14px 34px rgba(20, 10, 40, .18); }
 .tile .kicker { font-size: 15px; font-weight: 600; letter-spacing: .02em; color: var(--accent-text); }
 .tile h2 { font-size: clamp(40px, 6.4vw, 72px); font-weight: 600; line-height: 1.04; margin-top: 8px; letter-spacing: -0.035em; }
 .tile .lead { font-size: clamp(18px, 2.2vw, 24px); color: var(--fg2); margin: 14px auto 0; max-width: 34ch; line-height: 1.35; }
@@ -320,6 +321,10 @@ footer { margin-top: 120px; background: var(--surface); border-top: 1px solid va
   <div class="wrap" id="community">
     <section class="tile" aria-labelledby="community-title">
       <div class="wrap">
+        <picture>
+          <source media="(prefers-color-scheme: dark)" srcset="{{img:communityicon}}">
+          <img class="app-icon" src="{{img:communityiconlight}}" width="256" height="256" alt="The Community app icon: an open Bible with a flame, a dove and a cross">
+        </picture>
         <div class="kicker">The first app from Qortn</div>
         <h2 id="community-title">Community</h2>
         <p class="lead">A calm home for church communities. The Bible, weekly lessons, group pages and the people near you, all in one place.</p>
