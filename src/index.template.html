@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&family=Manrope:wght@400;500;600&display=swap">
 <style>
 /* Layout: an Apple-style studio page. Thin glass nav, a centred statement about Qortn, who we are and how we
-   build, then our apps (Community: a product tile, a sideways tour and the big screen), and a
+   build, then our apps (Sanctuary: a product tile, a sideways tour and the big screen), and a
    quiet footer where the wordmark catches the light. The mark sits faintly behind it all. */
 :root {
   --mark: url("{{mark_big}}");
@@ -98,7 +98,7 @@ p { margin: 0; }
 .more::after { content: " ›"; }
 .more:hover { text-decoration: underline; }
 
-/* ---------- Community tile: a headline, a line, then five iPhones fanned out ---------- */
+/* ---------- Sanctuary tile: a headline, a line, then five iPhones fanned out ---------- */
 .tile { --phone-shadow: rgba(0, 0, 0, .6); background: var(--surface); color: var(--fg); border-radius: 28px; overflow: hidden; overflow: clip; text-align: center; padding-block: 64px 0; position: relative; isolation: isolate; }
 .tile::before { content: none; }
 .tile .app-art { display: block; width: min(320px, 72vw); height: auto; margin: -8px auto 18px; }
@@ -293,16 +293,16 @@ footer { margin-top: 120px; background: var(--surface); border-top: 1px solid va
   <div class="wrap" id="community">
     <section class="tile" aria-labelledby="community-title">
       <div class="wrap">
-        <img class="app-art" src="{{img:communityart}}" width="640" height="655" alt="Community's logo: Jesus embracing a person, holding the cross, over an open Bible, in glowing greens">
+        <img class="app-art" src="{{img:communityart}}" width="512" height="512" alt="Sanctuary's logo: Jesus embracing a person, holding the cross, over an open Bible, in white on green">
         <div class="kicker">The first app from Qortn</div>
-        <h2 id="community-title">Community</h2>
+        <h2 id="community-title">Sanctuary</h2>
         <p class="lead">A calm home for church communities. The Bible, weekly lessons, group pages and the people near you, all in one place.</p>
         <div class="ctas">
-          <a class="btn" href="https://seventhdayadventist.online">Open Community</a>
+          <a class="btn" href="https://seventhdayadventist.online">Open Sanctuary</a>
           <span class="soon"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M16.4 12.6c0-2.4 2-3.6 2.1-3.7-1.2-1.7-3-1.9-3.6-2-1.5-.2-3 .9-3.8.9-.8 0-2-.9-3.3-.9-1.7 0-3.3 1-4.1 2.5-1.8 3.1-.5 7.6 1.3 10.1.8 1.2 1.8 2.6 3.1 2.5 1.3-.1 1.7-.8 3.3-.8 1.5 0 1.9.8 3.3.8 1.4 0 2.2-1.2 3-2.5 1-1.4 1.4-2.8 1.4-2.9-.1 0-2.7-1-2.7-4zM14 5.4c.7-.8 1.2-2 1-3.1-1 0-2.2.7-2.9 1.5-.6.7-1.2 1.9-1 3 1.1.1 2.2-.6 2.9-1.4z"/></svg>Coming soon to the App Store</span>
         </div>
       </div>
-      <ul class="fan" id="fan" aria-label="Community on iPhone">
+      <ul class="fan" id="fan" aria-label="Sanctuary on iPhone">
         <li class="r2" style="--from:-120%;--d:.24s"><figure>
           <div class="iph"><i class="vol a"></i><i class="vol b"></i><div class="iph-body"><div class="iph-screen"><i class="island"></i><div class="sb" aria-hidden="true"><span>9:41</span><svg viewBox="0 0 108 20"><rect x="0" y="12" width="3.6" height="6" rx="1"/><rect x="5.6" y="9" width="3.6" height="9" rx="1"/><rect x="11.2" y="5.5" width="3.6" height="12.5" rx="1"/><rect x="16.8" y="2" width="3.6" height="16" rx="1"/><path d="M39 17.6a2.2 2.2 0 1 0 .01 0zM32.6 11.6a9 9 0 0 1 12.8 0l-1.9 1.9a6.3 6.3 0 0 0-9 0zM28.6 7.6a14.7 14.7 0 0 1 20.8 0l-1.9 1.9a12 12 0 0 0-17 0z"/><rect x="60" y="3" width="40" height="15" rx="4.5" fill="none" stroke="#fff" stroke-opacity=".45" stroke-width="1.6"/><rect x="62.6" y="5.6" width="30" height="9.8" rx="2.6"/><rect x="101.6" y="8" width="2.4" height="5" rx="1.2" fill-opacity=".45"/></svg></div><img src="{{img:map}}" width="600" height="1226" alt="The map: friends who share their location, shown on a map of their town"></div></div></div>
           <figcaption>Map</figcaption>
@@ -330,7 +330,7 @@ footer { margin-top: 120px; background: var(--surface); border-top: 1px solid va
 
   <section class="section" id="tour" aria-labelledby="tour-title">
     <div class="wrap head">
-      <h2 id="tour-title">Get to know Community.</h2>
+      <h2 id="tour-title">Get to know Sanctuary.</h2>
       <div class="tour-nav" aria-label="Scroll the tour">
         <button type="button" id="prev" aria-label="Previous">‹</button>
         <button type="button" id="next" aria-label="Next">›</button>
@@ -350,7 +350,7 @@ footer { margin-top: 120px; background: var(--surface); border-top: 1px solid va
       <div class="big">
         <div>
           <h2>Made for the big screen too.</h2>
-          <p>On a laptop or in any browser, Community spreads out. A community's page shows its cover, its pinned post and everything about it side by side.</p>
+          <p>On a laptop or in any browser, Sanctuary spreads out. A community's page shows its cover, its pinned post and everything about it side by side.</p>
         </div>
         <div class="mini">
           <div class="mac-screen"><img src="{{img:maccommunity}}" width="1600" height="1000" alt="A community page on a laptop: Sabbath Prayer Circle, with its cover photo, its church, and its rules beside a pinned post" loading="lazy"></div>
